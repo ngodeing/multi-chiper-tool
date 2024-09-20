@@ -128,7 +128,6 @@ def index():
         cipher_type = request.form['cipher_type']
         operation = request.form['operation']
         
-        # Periksa apakah ada file yang diunggah
         file = request.files.get('file')
         if file and file.filename.endswith('.txt'):
             content = file.read().decode('utf-8').upper().replace('\n', '')
@@ -137,7 +136,6 @@ def index():
         
         key = request.form['key'].upper().strip()
 
-        # Validasi key
         if len(key) < 12:
             error = "Key harus terdiri dari minimal 12 karakter."
         elif not content:
@@ -156,7 +154,7 @@ def index():
                     result = playfair_decrypt(content, key)
             
             elif cipher_type == 'hill':
-                key_matrix = [[3, 3], [2, 5]]  # Contoh key matriks 2x2
+                key_matrix = [[3, 3], [2, 5]] 
                 if operation == 'encrypt':
                     result = hill_encrypt(content, key_matrix)
                 elif operation == 'decrypt':
